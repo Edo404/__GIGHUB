@@ -2,10 +2,6 @@ const SUPABASE_URL = "https://vzotqrbtnytotzdxfgvc.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ6b3RxcmJ0bnl0b3R6ZHhmZ3ZjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDg5ODM0MDksImV4cCI6MjA2NDU1OTQwOX0.L0AAQ4JaPZ-C1x-ZA6TaigMjzuG45apv-gf7ApGydNY";
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-
-
-
-
 document.addEventListener('DOMContentLoaded', function() {
     const loginForm = document.getElementById('loginForm');
     
@@ -66,10 +62,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
-
-
-
-
 
 async function fetchUsers() {
     const { data, error } = await supabaseClient

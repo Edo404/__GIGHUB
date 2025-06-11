@@ -10,7 +10,7 @@
     <!-- Navbar -->
     <nav class="navbar">
         <div class="nav-left">
-            <div class="logo">Gig</div>
+            <div class="logo"><img id="logo" src="img/logo.png" alt="logo"></div>
             <div class="search-bar">
                 <span class="search-icon">🔍</span>
                 <input type="text" placeholder="Cerca musicisti, band, eventi...">
@@ -26,8 +26,9 @@
             <div class="profile-dropdown">
                 <div class="profile-avatar" onclick="toggleDropdown()"></div>
                 <div class="dropdown-menu" id="dropdownMenu">
+                    <a href="#" class="dropdown-item"> Profilo</a>
                     <a href="#" class="dropdown-item">⚙️ Impostazioni</a>
-                    <a href="#" class="dropdown-item">🚪 Logout</a>
+                    <a href="login/login.html" class="dropdown-item">🚪 Logout</a>
                 </div>
             </div>
         </div>
@@ -70,13 +71,20 @@
         </div>
         
         <div class="mobile-menu-item">
+            <span class="icon"></span>
+            <span class="text">Profilo</span>
+        </div>
+
+        <div class="mobile-menu-item">
             <span class="icon">⚙️</span>
             <span class="text">Impostazioni</span>
         </div>
         
         <div class="mobile-menu-item">
-            <span class="icon">🚪</span>
-            <span class="text">Logout</span>
+            <a href="login/login.html" class="dropdown-item">
+                <span class="icon">🚪</span>
+                <span class="text">Logout</span>
+            </a>
         </div>
     </div>
     </nav>
