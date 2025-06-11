@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GigHub - Login</title>
+    <link rel="stylesheet" href="./login.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo">G</div>
+        <h1 class="title">GigHub</h1>
+        
+        <form id="loginForm">
+            <div class="form-group">
+                <input type="text" class="form-input" placeholder="Username" id="username" required>
+            </div>
+            
+            <div class="form-group">
+                <input type="password" class="form-input" placeholder="Password" id="password" required>
+            </div>
+            
+            <a href="#" class="forgot-password">Password dimenticata?</a>
+            
+            <button type="submit" class="login-btn">Login</button>
+        </form>
+        
+        <div class="signup-text">
+            Non sei ancora un utente GigHub? <a href="#" class="signup-link">Sign in</a>
+        </div>
+    </div>
+    <script src="../script.js"></script>
+</body>
+</html>

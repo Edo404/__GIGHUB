@@ -1,0 +1,306 @@
+// --- USER TYPE (musician / organizer) ---
+Table user_type {
+  id int [pk, increment]
+  type varchar [unique, note: 'Can be either musician or organizer']
+}
+
+// --- MUSIC GENRES ---
+Table music_genres {
+  id int [pk, increment]
+  name varchar [unique]
+}
+
+// --- EVENT GENRES ---
+Table event_genres {
+  id int [pk, increment]
+  name varchar [unique]
+}
+
+// --- USERS ---
+Table users {
+  id int [pk, increment]
+  user_type_id int [ref: > user_type.id]
+  name varchar
+  surname varchar
+  email varchar [unique]
+  profile_image_url varchar
+  bio text
+  phone varchar [note: 'Optional']
+  city varchar
+  country varchar [default: 'Italy']
+  created_at datetime
+  updated_at datetime
+  is_verified boolean
+  is_active boolean
+}
+
+// --- RELATION: USERS <-> MUSIC GENRES ---
+Table user_music_genre {
+  user_id int [ref: > users.id]
+  music_genre_id int [ref: > music_genres.id]
+
+  indexes {
+    (user_id, music_genre_id) [pk]
+  }
+}
+
+// --- RELATION: USERS <-> EVENT GENRES ---
+Table user_event_genre {
+  user_id int [ref: > users.id]
+  event_genre_id int [ref: > event_genres.id]
+
+  indexes {
+    (user_id, event_genre_id) [pk]
+  }
+}
+
+// --- BANDS ---
+Table bands {
+  id int [pk, increment]
+  profile_image_url varchar
+  bio text
+  name varchar
+  start_date date
+  end_date date
+  country varchar
+  region varchar
+  city varchar
+}
+
+// --- RELATION: USERS <-> BANDS ---
+Table user_band {
+  user_id int [ref: > users.id]
+  band_id int [ref: > bands.id]
+  start_date date
+  end_date date
+  created_at datetime
+  updated_at datetime
+
+  indexes {
+    (user_id, band_id) [pk]
+  }
+}
+
+// --- RELATION: BANDS <-> MUSIC GENRES ---
+Table band_music_genre {
+  band_id int [ref: > bands.id]
+  music_genre_id int [ref: > music_genres.id]
+
+  indexes {
+    (band_id, music_genre_id) [pk]
+  }
+}
+
+// --- RELATION: BANDS <-> EVENT GENRES ---
+Table band_event_genre {
+  band_id int [ref: > bands.id]
+  event_genre_id int [ref: > event_genres.id]
+
+  indexes {
+    (band_id, event_genre_id) [pk]
+  }
+}
+
+// --- INSTRUMENTS ---
+Table instruments {
+  id int [pk, increment]
+  name varchar
+}
+
+// --- RELATION: USERS <-> INSTRUMENTS ---
+Table user_instrument {
+  user_id int [ref: > users.id]
+  instrument_id int [ref: > instruments.id]
+
+  indexes {
+    (user_id, instrument_id) [pk]
+  }
+}
+
+// --- COMPANIES ---
+Table companies {
+  id int [pk, increment]
+  name varchar
+  start_date date
+  end_date date
+  vat_code varchar [unique]
+  country varchar
+  city varchar
+}
+
+// --- RELATION: USERS <-> COMPANIES ---
+Table user_company {
+  user_id int [ref: > users.id]
+  company_id int [ref: > companies.id]
+  created_at datetime
+  updated_at datetime
+
+  indexes {
+    (user_id, company_id) [pk]
+  }
+}
+
+// --- EVENTS ---
+Table events {
+  id int [pk, increment]
+  name varchar
+  description text
+  company_id int [ref: > companies.id]
+  start_date datetime
+  end_date datetime
+  country varchar
+  region varchar
+  city varchar
+}
+
+// --- RELATION: EVENTS <-> MUSIC GENRES ---
+Table event_music_genre {
+  event_id int [ref: > events.id]
+  music_genre_id int [ref: > music_genres.id]
+
+  indexes {
+    (event_id, music_genre_id) [pk]
+  }
+}
+
+// --- RELATION: EVENTS <-> EVENT GENRES ---
+Table event_event_genre {
+  event_id int [ref: > events.id]
+  event_genre_id int [ref: > event_genres.id]
+
+  indexes {
+    (event_id, event_genre_id) [pk]
+  }
+}
+
+// --- RELATION: EVENTS <-> BANDS ---
+Table event_band {
+  event_id int [ref: > events.id]
+  band_id int [ref: > bands.id]
+
+  indexes {
+    (event_id, band_id) [pk]
+  }
+}
+
+// --- RELATION: EVENTS <-> USERS (planners) ---
+Table event_planner {
+  user_id int [ref: > users.id]
+  event_id int [ref: > events.id]
+  created_at datetime
+  updated_at datetime
+
+  indexes {
+    (event_id, user_id) [pk]
+  }
+}
+
+// --- POSTS ---
+Table posts {
+  id integer [pk, increment]
+  title varchar
+  body text [note: 'Content of the post']
+  user_id integer [not null, ref: > users.id]
+  image_url varchar [note: 'Optional image associated with the post']
+  status varchar
+  created_at timestamp
+}
+
+// --- TAGS ---
+Table tags {
+  id int [pk, increment]
+  name varchar [unique]
+}
+
+// --- RELATION: POSTS <-> TAGS ---
+Table post_tag {
+  post_id int [ref: > posts.id]
+  tag_id int [ref: > tags.id]
+
+  indexes {
+    (post_id, tag_id) [pk]
+  }
+}
+
+// --- COMMENTS ON POSTS ---
+Table post_comment {
+  id int [pk, increment]
+  post_id int [ref: > posts.id]
+  user_id int [ref: > users.id]
+  body text
+  created_at timestamp
+}
+
+// --- LIKES ON POSTS ---
+Table post_like {
+  post_id int [ref: > posts.id]
+  user_id int [ref: > users.id]
+  created_at timestamp
+
+  indexes {
+    (post_id, user_id) [pk]
+  }
+}
+
+// --- FOLLOWS ---
+Table follows {
+  following_user_id integer [ref: > users.id]
+  followed_user_id integer [ref: > users.id]
+  created_at timestamp
+
+  indexes {
+    (following_user_id, followed_user_id) [pk]
+  }
+}
+
+// --- MEDIA FILES ---
+Table media_files {
+  id int [pk, increment]
+  user_id int [ref: > users.id]
+  band_id int [ref: > bands.id, note: 'Optional']
+  type varchar [note: 'image, video, audio']
+  url varchar
+  description varchar
+  uploaded_at datetime
+}
+
+// --- NOTIFICATIONS ---
+Table notifications {
+  id int [pk, increment]
+  user_id int [ref: > users.id, note: 'Chi riceve la notifica']
+  type varchar [note: 'follow / like / comment / application_received']
+  entity_id int [note: 'ID del post, evento o candidatura']
+  entity_type varchar [note: 'post, application, evento']
+  message text
+  is_read boolean [default: false]
+  created_at datetime
+}
+
+// --- UNIFIED APPLICATIONS ---
+Table event_application {
+  id int [pk, increment]
+  event_id int [ref: > events.id]
+  is_band_application boolean
+  band_id int [ref: > bands.id, note: 'Required if is_band_application = true']
+  user_id int [ref: > users.id, note: 'Required if is_band_application = false']
+  submitted_by_user_id int [ref: > users.id, note: 'Chi ha inviato la candidatura']
+  message text
+  status varchar [note: 'pending / accepted / rejected']
+  created_at datetime
+  updated_at datetime
+
+  note: 'If is_band_application = true, band_id must be NOT NULL and user_id must be NULL, and vice versa'
+}
+
+Table reviews {
+  id int [pk, increment]
+  reviewer_id int [ref: > users.id]
+  reviewed_user_id int [ref: > users.id, note: 'Nullable if review is for a band']
+  reviewed_band_id int [ref: > bands.id, note: 'Nullable if review is for a user']
+  event_id int [ref: > events.id]
+  rating int [note: '1 to 5']
+  comment text
+  created_at datetime
+
+  note: 'Exactly one of reviewed_user_id or reviewed_band_id must be present (logical constraint)'
+}

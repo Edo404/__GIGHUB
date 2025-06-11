@@ -1,0 +1,302 @@
+1. USER_TYPE
+
+- Descrizione: 
+Contiene i tipi di utenti del sistema (es. musicista, organizzatore).
+
+- Attributi:
+id (int, PK, auto-increment)
+type (varchar, unico) – Valori previsti: "musician", "organizer"
+
+
+2. USER
+
+- Descrizione: 
+Utenti registrati alla piattaforma.
+
+- Attributi:
+id (int, PK)
+user_type_id (int, FK → user_type.id)
+name, surname (varchar)
+email (varchar, unico)
+profile_image_url (varchar)
+bio (text)
+phone (varchar, opzionale)
+city, country (varchar, default 'Italy')
+created_at, updated_at (datetime)
+is_verified, is_active (boolean)
+
+- Relazioni:
+Ha molti generi musicali/eventi, strumenti, aziende, post, band, media, notifiche, candidature, recensioni.
+
+
+3. MUSIC_GENRE
+
+- Descrizione: 
+Generi musicali disponibili.
+
+- Attributi:
+id (int, PK)
+name (varchar, unico)
+
+
+4. EVENT_GENRE
+
+- Descrizione: 
+Categorie di eventi (es. festival, jam session).
+
+- Attributi:
+id (int, PK)
+name (varchar, unico)
+
+
+5. USER_MUSIC_GENRE / USER_EVENT_GENRE
+
+- Descrizione: 
+Associazioni tra utenti e i generi musicali/eventi preferiti.
+
+- Chiavi:
+user_id (FK → users.id)
+genre_id (FK → music_genres.id o event_genres.id)
+
+
+6. BAND
+
+- Descrizione: 
+Gruppi musicali.
+
+- Attributi:
+id (int, PK)
+profile_image_url (varchar/text)
+bio (varchar/text) 
+name (varchar/text)
+start_date (date)
+end_date (date)
+country (varchar)
+region (varchar)
+city (varchar)
+
+
+7. USER_BAND
+
+- Descrizione: 
+Relazione tra utenti e band a cui appartengono.
+
+- Attributi:
+user_id, band_id (FK)
+start_date, end_date (date)
+created_at, updated_at (datetime)
+
+
+8. BAND_MUSIC_GENRE / BAND_EVENT_GENRE
+
+- Descrizione: 
+Generi associati a ciascuna band.
+
+- Chiavi:
+band_id (FK)
+genre_id (FK → music_genres.id o event_genres.id)
+
+
+9. INSTRUMENT
+
+- Descrizione: 
+Strumenti musicali disponibili nel sistema.
+
+- Attributi:
+id (int, PK)
+name (varchar)
+
+
+10. USER_INSTRUMENT
+
+- Descrizione: 
+Associazione tra utenti e strumenti suonati.
+
+- Chiavi:
+user_id (FK → users.id)
+instrument_id (FK → instruments.id)
+
+
+11. COMPANY
+
+- Descrizione: 
+Aziende registrate (es. locali, agenzie).
+
+- Attributi:
+id (int, PK)
+name, vat_code (varchar, unico)
+start_date, end_date (date)
+country, city (varchar)
+
+
+12. USER_COMPANY
+
+- Descrizione: 
+Utenti collegati a un’azienda (es. organizzatori).
+
+- Attributi:
+user_id, company_id (FK)
+created_at, updated_at (datetime)
+
+
+13. EVENT
+
+- Descrizione: 
+Eventi pubblicati sulla piattaforma.
+
+- Attributi:
+id (int, PK)
+name, description (varchar/text)
+company_id (FK → companies.id)
+start_date, end_date (datetime)
+country, region, city (varchar)
+
+
+14. EVENT_MUSIC_GENRE / EVENT_EVENT_GENRE
+
+- Descrizione: 
+Generi musicali o categorie legate a ciascun evento.
+
+- Chiavi:
+event_id (FK)
+genre_id (FK → music_genres.id o event_genres.id)
+
+
+15. EVENT_BAND
+
+- Descrizione: 
+Band invitate o partecipanti a un evento.
+
+- Chiavi:
+event_id, band_id (FK)
+
+
+16. EVENT_PLANNER
+
+- Descrizione: 
+Utenti (es. organizzatori) associati a eventi come gestori.
+
+- Attributi:
+user_id, event_id (FK)
+created_at, updated_at
+
+
+17. POST
+
+- Descrizione: 
+Post creati dagli utenti.
+
+- Attributi:
+id (int, PK)
+title, body (varchar/text)
+user_id (FK → users.id)
+image_url (varchar, opzionale)
+status (varchar) – es. published, draft
+created_at (timestamp)
+
+
+18. TAG / POST_TAG
+
+- Descrizione: 
+Tag associati ai post.
+
+- Chiavi:
+id (PK), name (unico)
+post_id, tag_id (FK) nella tabella ponte
+
+
+19. POST_COMMENT
+
+- Descrizione: 
+Commenti ai post.
+
+- Attributi:
+id (PK)
+post_id, user_id (FK)
+body (text)
+created_at (timestamp)
+
+
+20. POST_LIKE
+
+- Descrizione: 
+Like ai post.
+
+- Chiavi:
+post_id, user_id (FK)
+created_at (timestamp)
+
+
+21. FOLLOW
+
+- Descrizione: 
+Relazione di follow tra utenti.
+
+- Chiavi:
+following_user_id, followed_user_id (FK)
+created_at
+
+
+22. MEDIA_FILE
+
+- Descrizione: 
+File multimediali caricati da utenti (foto, audio, video).
+
+- Attributi:
+id (PK)
+user_id, band_id (FK)
+type (varchar: image, video, audio)
+url, description (varchar)
+uploaded_at
+
+
+23. NOTIFICATION
+
+- Descrizione: 
+Notifiche ricevute dagli utenti.
+
+- Attributi:
+
+id (PK)
+user_id (FK → users.id) – chi riceve
+type (varchar: follow, like, comment, application_received)
+entity_id, entity_type (int, varchar) – riferimento all’oggetto notificato
+message (text)
+is_read (boolean, default false)
+created_at
+
+
+24. EVENT_APPLICATION
+
+- Descrizione: 
+Candidature a eventi da parte di utenti o band.
+
+- Attributi:
+
+id (PK)
+event_id (FK)
+is_band_application (boolean)
+band_id (FK, richiesto se is_band_application = true)
+user_id (FK, richiesto se false)
+submitted_by_user_id (FK)
+message, status (text, varchar)
+created_at, updated_at
+
+- Nota: una sola tra band_id o user_id deve essere valorizzata.
+
+
+25. REVIEW
+
+- Descrizione: 
+Recensioni su utenti o band dopo eventi.
+
+- Attributi:
+id (PK)
+reviewer_id (FK → users.id)
+reviewed_user_id, reviewed_band_id (FK)
+event_id (FK)
+rating (int: 1-5)
+comment (text)
+created_at
+
+- Nota: esattamente uno tra reviewed_user_id o reviewed_band_id deve essere valorizzato.

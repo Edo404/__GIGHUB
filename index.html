@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | GigHub</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <div class="logo">Gig</div>
+            <div class="search-bar">
+                <span class="search-icon">🔍</span>
+                <input type="text" placeholder="Cerca musicisti, band, eventi...">
+            </div>
+        </div>
+        <div class="nav-right">
+            <button class="nav-icon active" title="Home">🏠</button>
+            <button class="nav-icon" title="Eventi">🎵</button>
+            <button class="nav-icon" title="Notifiche">
+                🔔
+                <span class="notification-badge">3</span>
+            </button>
+            <div class="profile-dropdown">
+                <div class="profile-avatar" onclick="toggleDropdown()"></div>
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <a href="#" class="dropdown-item">⚙️ Impostazioni</a>
+                    <a href="#" class="dropdown-item">🚪 Logout</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Hamburger Menu for Mobile -->
+        <div class="hamburger" onclick="toggleMobileMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-overlay" id="mobileOverlay" onclick="closeMobileMenu()"></div>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-profile">
+            <div class="mobile-profile-avatar"></div>
+            <div class="mobile-profile-info">
+                <h4>Marco Rossi</h4>
+                <p>Chitarrista • The Rock Band</p>
+            </div>
+        </div>
+        
+        <div class="mobile-menu-item active">
+            <span class="icon">🏠</span>
+            <span class="text">Home</span>
+        </div>
+        
+        <div class="mobile-menu-item">
+            <span class="icon">🎵</span>
+            <span class="text">Eventi</span>
+        </div>
+        
+        <div class="mobile-menu-item">
+            <span class="icon">🔔</span>
+            <span class="text">Notifiche</span>
+            <span class="notification-badge">3</span>
+        </div>
+        
+        <div class="mobile-menu-item">
+            <span class="icon">⚙️</span>
+            <span class="text">Impostazioni</span>
+        </div>
+        
+        <div class="mobile-menu-item">
+            <span class="icon">🚪</span>
+            <span class="text">Logout</span>
+        </div>
+    </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <!-- Profile Card -->
+            <div class="profile-card">
+                <div class="profile-info">
+                    <div class="profile-img"></div>
+                    <div class="profile-name">Marco Rossi</div>
+                    <div class="profile-role">Chitarrista</div>
+                    <div class="profile-band">The Rock Band</div>
+                </div>
+            </div>
+
+            <!-- Events Card -->
+            <div class="events-card">
+                <div class="events-section">
+                    <h3>📌 Eventi Salvati</h3>
+                    <div class="event-item">Concerto al Club 27</div>
+                    <div class="event-item">Jam Session Downtown</div>
+                </div>
+
+                <div class="events-section">
+                    <h3>📅 Eventi in Arrivo</h3>
+                    <div class="event-item">15 Giu - Open Mic Night</div>
+                    <div class="event-item">20 Giu - Battle of Bands</div>
+                </div>
+
+                <div class="events-section">
+                    <h3>❤️ Eventi di Interesse</h3>
+                    <div class="event-item">Festival Rock 2025</div>
+                    <div class="event-item">Workshop Chitarra</div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Feed -->
+        <main class="feed">
+            <!-- Post Composer -->
+            <div class="post-composer">
+                <div class="composer-header">
+                    <div class="composer-avatar"></div>
+                    <span>Cosa stai pensando, Marco?</span>
+                </div>
+                <textarea class="composer-input" placeholder="Condividi la tua musica, i tuoi pensieri..."></textarea>
+                <div class="composer-actions">
+                    <div class="media-buttons">
+                        <button class="media-btn" title="Aggiungi Immagine">📷</button>
+                        <button class="media-btn" title="Aggiungi Video">🎥</button>
+                        <button class="media-btn" title="Aggiungi Audio">🎵</button>
+                    </div>
+                    <button class="post-btn" onclick="createPost()">Pubblica</button>
+                </div>
+            </div>
+
+            <!-- Posts Feed -->
+            <div id="postsContainer">
+                <!-- Post 1 -->
+                <article class="post">
+                    <div class="post-header">
+                        <div class="post-avatar"></div>
+                        <div class="post-user-info">
+                            <h4>Laura Bianchi</h4>
+                            <div class="post-user-meta">Cantante • Blue Notes Band</div>
+                        </div>
+                    </div>
+                    <div class="post-title">Nuovo singolo in arrivo! 🎤</div>
+                    <div class="post-content">
+                        Sono super emozionata di condividere con voi che il nostro nuovo singolo "Midnight Dreams" sarà disponibile venerdì prossimo! È stato un lavoro incredibile con la band. Non vedo l'ora che lo sentiate! 🎶✨
+                    </div>
+                    <div class="post-image">🎵 Audio Preview</div>
+                    <div class="post-actions">
+                        <button class="action-btn" onclick="toggleLike(this)">
+                            <span>❤️</span> <span class="like-count">24</span> Mi piace
+                        </button>
+                        <button class="action-btn">
+                            <span>💬</span> 8 Commenti
+                        </button>
+                        <button class="action-btn">
+                            <span>📤</span> Condividi
+                        </button>
+                    </div>
+                </article>
+
+                <!-- Post 2 -->
+                <article class="post">
+                    <div class="post-header">
+                        <div class="post-avatar"></div>
+                        <div class="post-user-info">
+                            <h4>Alessandro Verdi</h4>
+                            <div class="post-user-meta">Batterista • Rhythm Section</div>
+                        </div>
+                    </div>
+                    <div class="post-title">Jam Session di ieri sera 🥁</div>
+                    <div class="post-content">
+                        Che serata incredibile! La chimica tra i musicisti era pazzesca. Quando la musica fluisce così naturalmente... non c'è niente di meglio al mondo! Grazie a tutti quelli che hanno partecipato! 
+                    </div>
+                    <div class="post-image">📷 Foto della jam session</div>
+                    <div class="post-actions">
+                        <button class="action-btn" onclick="toggleLike(this)">
+                            <span>❤️</span> <span class="like-count">18</span> Mi piace
+                        </button>
+                        <button class="action-btn">
+                            <span>💬</span> 12 Commenti
+                        </button>
+                        <button class="action-btn">
+                            <span>📤</span> Condividi
+                        </button>
+                    </div>
+                </article>
+
+                <!-- Post 3 -->
+                <article class="post">
+                    <div class="post-header">
+                        <div class="post-avatar"></div>
+                        <div class="post-user-info">
+                            <h4>Sofia Romano</h4>
+                            <div class="post-user-meta">Bassista • Underground Vibes</div>
+                        </div>
+                    </div>
+                    <div class="post-title">Nuovo setup per le registrazioni 🎸</div>
+                    <div class="post-content">
+                        Finalmente ho completato il mio home studio! Dopo mesi di ricerca e investimenti, ora posso registrare i miei bassi con una qualità professionale. Il suono è semplicemente perfetto! 
+                    </div>
+                    <div class="post-image">🎥 Video del setup</div>
+                    <div class="post-actions">
+                        <button class="action-btn" onclick="toggleLike(this)">
+                            <span>❤️</span> <span class="like-count">31</span> Mi piace
+                        </button>
+                        <button class="action-btn">
+                            <span>💬</span> 15 Commenti
+                        </button>
+                        <button class="action-btn">
+                            <span>📤</span> Condividi
+                        </button>
+                    </div>
+                </article>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Toggle dropdown menu
+        function toggleDropdown() {
+            const dropdown = document.getElementById('dropdownMenu');
+            dropdown.classList.toggle('show');
+        }
+
+        // Toggle mobile menu
+        function toggleMobileMenu() {
+            const hamburger = document.querySelector('.hamburger');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const overlay = document.getElementById('mobileOverlay');
+            
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('show');
+            overlay.classList.toggle('show');
+            
+            // Prevent body scroll when menu is open
+            if (mobileMenu.classList.contains('show')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Close mobile menu
+        function closeMobileMenu() {
+            const hamburger = document.querySelector('.hamburger');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const overlay = document.getElementById('mobileOverlay');
+            
+            hamburger.classList.remove('active');
+            mobileMenu.classList.remove('show');
+            overlay.classList.remove('show');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('dropdownMenu');
+            const profileAvatar = document.querySelector('.profile-avatar');
+            
+            if (profileAvatar && !profileAvatar.contains(event.target)) {
+                dropdown.classList.remove('show');
+            }
+        });
+
+        // Toggle like button
+        function toggleLike(button) {
+            button.classList.toggle('liked');
+            const likeCount = button.querySelector('.like-count');
+            let count = parseInt(likeCount.textContent);
+            
+            if (button.classList.contains('liked')) {
+                likeCount.textContent = count + 1;
+                button.style.color = '#ff6b35';
+            } else {
+                likeCount.textContent = count - 1;
+                button.style.color = '#6c757d';
+            }
+        }
+
+        // Create new post
+        function createPost() {
+            const textarea = document.querySelector('.composer-input');
+            const content = textarea.value.trim();
+            
+            if (content === '') {
+                alert('Scrivi qualcosa prima di pubblicare!');
+                return;
+            }
+
+            const postsContainer = document.getElementById('postsContainer');
+            const newPost = document.createElement('article');
+            newPost.className = 'post';
+            
+            newPost.innerHTML = `
+                <div class="post-header">
+                    <div class="post-avatar"></div>
+                    <div class="post-user-info">
+                        <h4>Marco Rossi</h4>
+                        <div class="post-user-meta">Chitarrista • The Rock Band</div>
+                    </div>
+                </div>
+                <div class="post-content">${content}</div>
+                <div class="post-actions">
+                    <button class="action-btn" onclick="toggleLike(this)">
+                        <span>❤️</span> <span class="like-count">0</span> Mi piace
+                    </button>
+                    <button class="action-btn">
+                        <span>💬</span> 0 Commenti
+                    </button>
+                    <button class="action-btn">
+                        <span>📤</span> Condividi
+                    </button>
+                </div>
+            `;
+
+            postsContainer.insertBefore(newPost, postsContainer.firstChild);
+            textarea.value = '';
+            
+            // Add entrance animation
+            newPost.style.opacity = '0';
+            newPost.style.transform = 'translateY(-20px)';
+            setTimeout(() => {
+                newPost.style.transition = 'all 0.5s ease';
+                newPost.style.opacity = '1';
+                newPost.style.transform = 'translateY(0)';
+            }, 100);
+        }
+
+        // Add some interactive effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Search bar focus effect
+            const searchInput = document.querySelector('.search-bar input');
+            searchInput.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'scale(1.02)';
+            });
+            searchInput.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'scale(1)';
+            });
+
+            // Smooth scrolling for better UX
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Add loading animation to media buttons
+            document.querySelectorAll('.media-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 150);
+                });
+            });
+
+            // Mobile menu item click handlers
+            document.querySelectorAll('.mobile-menu-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    // Remove active class from all items
+                    document.querySelectorAll('.mobile-menu-item').forEach(i => i.classList.remove('active'));
+                    // Add active class to clicked item (except for settings and logout)
+                    if (!this.textContent.includes('Impostazioni') && !this.textContent.includes('Logout')) {
+                        this.classList.add('active');
+                    }
+                    // Close mobile menu after selection
+                    closeMobileMenu();
+                });
+            });
+
+            // Close mobile menu on window resize
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768) {
+                    closeMobileMenu();
+                }
+            });
+        });
+
+        // Textarea auto-resize
+        document.querySelector('.composer-input').addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = Math.max(60, this.scrollHeight) + 'px';
+        });
+
+        // Add typing indicator for composer
+        let typingTimeout;
+        document.querySelector('.composer-input').addEventListener('input', function() {
+            const placeholder = document.querySelector('.composer-header span');
+            
+            if (this.value.length > 0) {
+                placeholder.textContent = 'Marco sta scrivendo...';
+                placeholder.style.color = '#ff6b35';
+            } else {
+                placeholder.textContent = 'Cosa stai pensando, Marco?';
+                placeholder.style.color = '#6c757d';
+            }
+
+            clearTimeout(typingTimeout);
+            typingTimeout = setTimeout(() => {
+                if (this.value.length === 0) {
+                    placeholder.textContent = 'Cosa stai pensando, Marco?';
+                    placeholder.style.color = '#6c757d';
+                }
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
